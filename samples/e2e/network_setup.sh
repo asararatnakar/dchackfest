@@ -41,13 +41,13 @@ function removeUnwantedImages() {
 }
 
 function generateOrdereBlock () {
-	#echo
-	#echo "##########################################################"
-	#echo "############## Generate certificates #####################"
-	#echo "##########################################################"
+	echo
+	echo "##########################################################"
+	echo "############## Generate certificates #####################"
+	echo "##########################################################"
         #./../../bin/cryptogen generate --config=./crypto-config.yaml
-	#echo
-	#echo
+	echo
+	echo
 
 	echo "##########################################################"
 	echo "#########  Generating Orderer Genesis block ##############"
@@ -84,7 +84,8 @@ function networkDown () {
 	#Cleanup images
 	removeUnwantedImages
         # remove orderer block and channel transaction
-	rm -rf orderer.block channel.tx crypto-config
+	rm -rf orderer.block channel.tx
+	#rm -rf crypto-config
 }
 
 validateArgs

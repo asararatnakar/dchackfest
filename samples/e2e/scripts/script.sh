@@ -35,7 +35,7 @@ setGlobals () {
 		fi 
 	else
 		CORE_PEER_LOCALMSPID="Org1MSP"
-		if [ $1 -eq 0 ]; then
+		if [ $1 -eq 2 ]; then
 			CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/cacerts/org2.example.com-cert.pem
 			CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com
 		else 
@@ -44,12 +44,13 @@ setGlobals () {
 		fi 
 
 	fi
-	#env |grep CORE
+	env |grep CORE
 }
 
 createChannel() {
 	CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com
 	CORE_PEER_LOCALMSPID="OrdererMSP"
+	env |grep CORE
 
         if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
 		peer channel create -o orderer0:7050 -c $CHANNEL_NAME -f channel.tx >&log.txt
@@ -146,6 +147,7 @@ chaincodeQuery () {
 
 chaincodeInvoke () {
         PEER=$1
+        setGlobals $PEER
         if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
 		peer chaincode invoke -o orderer0:7050 -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}' >&log.txt
 	else
