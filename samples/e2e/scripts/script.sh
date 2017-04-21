@@ -140,6 +140,7 @@ chaincodeQuery () {
 	echo "!!!!!!!!!!!!!!! Query result on PEER$PEER is INVALID !!!!!!!!!!!!!!!!"
         echo "================== ERROR !!! FAILED to execute End-2-End Scenario =================="
 	echo
+	exit 1
   fi
 }
 
@@ -157,19 +158,19 @@ chaincodeInvoke () {
 	echo
 }
 
-downloadChaincodes () {
-	CURRENT_DIR=$PWD
-	mkdir -p /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02/
-        cd /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02/
-	wget https://raw.githubusercontent.com/hyperledger/fabric/master/examples/chaincode/go/chaincode_example02/chaincode_example02.go
+#downloadChaincodes () {
+#	CURRENT_DIR=$PWD
+#	mkdir -p /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02/
+#        cd /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02/
+#	wget https://raw.githubusercontent.com/hyperledger/fabric/master/examples/chaincode/go/chaincode_example02/chaincode_example02.go
 
-	mkdir -p /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/marbles02/
-	cd /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/marbles02/
-	wget https://raw.githubusercontent.com/hyperledger/fabric/master/examples/chaincode/go/marbles02/marbles_chaincode.go
-	cd $CURRENT_DIR
-}
+#	mkdir -p /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/marbles02/
+#	cd /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/marbles02/
+#	wget https://raw.githubusercontent.com/hyperledger/fabric/master/examples/chaincode/go/marbles02/marbles_chaincode.go
+#	cd $CURRENT_DIR
+#}
 
-downloadChaincodes
+#downloadChaincodes
 
 ## Create channel
 createChannel

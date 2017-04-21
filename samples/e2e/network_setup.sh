@@ -66,6 +66,8 @@ function networkDown () {
 	clearContainers
 	#Cleanup images
 	removeUnwantedImages
+        # remove orderer block and channel transaction
+	rm -rf orderer.block channel.tx
 }
 
 validateArgs
