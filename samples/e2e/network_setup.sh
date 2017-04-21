@@ -3,8 +3,8 @@
 UP_DOWN=$1
 CH_NAME=$2
 
-#COMPOSE_FILE=docker-compose.yaml
-COMPOSE_FILE=docker-compose-no-tls.yaml
+COMPOSE_FILE=docker-compose.yaml
+#COMPOSE_FILE=docker-compose-no-tls.yaml
 
 function printHelp () {
 	echo "Usage: ./network_setup <up|down> <channel-name>"
@@ -40,14 +40,29 @@ function removeUnwantedImages() {
         fi
 }
 
+function replacePrivateKey () {
+        PRIV_KEY=$(ls crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/keystore/)
+        sed -i "s/ORDERER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose.yaml
+        PRIV_KEY=$(ls crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/keystore/)
+        sed -i "s/PEER0_ORG1_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose.yaml
+        PRIV_KEY=$(ls crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/keystore/)
+        sed -i "s/PEER1_ORG1_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose.yaml
+        PRIV_KEY=$(ls crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/keystore/)
+        sed -i "s/PEER0_ORG2_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose.yaml
+        PRIV_KEY=$(ls crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/keystore/)
+        sed -i "s/PEER1_ORG2_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose.yaml
+}
+
 function generateOrdereBlock () {
 	echo
 	echo "##########################################################"
 	echo "############## Generate certificates #####################"
 	echo "##########################################################"
-        #./../../bin/cryptogen generate --config=./crypto-config.yaml
+        ./../../bin/cryptogen generate --config=./crypto-config.yaml
 	echo
 	echo
+
+        replacePrivateKey
 
 	echo "##########################################################"
 	echo "#########  Generating Orderer Genesis block ##############"
@@ -84,8 +99,7 @@ function networkDown () {
 	#Cleanup images
 	removeUnwantedImages
         # remove orderer block and channel transaction
-	rm -rf orderer.block channel.tx
-	#rm -rf crypto-config
+	rm -rf orderer.block channel.tx crypto-config
 }
 
 validateArgs
