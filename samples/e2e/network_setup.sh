@@ -55,12 +55,17 @@ function replacePrivateKey () {
 }
 
 function generateArtifacts () {
-        #let os_arch=$(echo "$(uname -s)-$(uname -m)" | awk '{print tolower($0)}')
+        os_arch=$(echo "$(uname -s)-$(uname -m)" | awk '{print tolower($0)}')
+        if [ "$(uname -m)" = "x86_64" ]; then
+                os_arch=$(echo "$(uname -s)-amd64" | awk '{print tolower($0)}')
+        fi
+
+        echo "OS_ARCH "$os_arch
 	echo
 	echo "##########################################################"
 	echo "############## Generate certificates #####################"
 	echo "##########################################################"
-        ./../../bin/cryptogen generate --config=./crypto-config.yaml
+        ./../../$os_arch/bin/cryptogen generate --config=./crypto-config.yaml
 	echo
 	echo
 
@@ -70,14 +75,14 @@ function generateArtifacts () {
 	echo "#########  Generating Orderer Genesis block ##############"
 	echo "##########################################################"
 	export ORDERER_CFG_PATH=$PWD
-	./../../bin/configtxgen -profile TwoOrgs -outputBlock orderer.block
+	./../../$os_arch/bin/configtxgen -profile TwoOrgs -outputBlock orderer.block
 	echo
 	echo
 
 	echo "#################################################################"
 	echo "### Generating channel configuration transaction 'channel.tx' ###"
 	echo "#################################################################"
-	./../../bin/configtxgen -profile TwoOrgs -outputCreateChannelTx channel.tx -channelID $CH_NAME
+	./../../$os_arch/bin/configtxgen -profile TwoOrgs -outputCreateChannelTx channel.tx -channelID $CH_NAME
 	echo
 	echo
 
