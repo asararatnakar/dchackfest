@@ -1,3 +1,4 @@
 samples/e2e/channel.tx
 samples/e2e/orderer.block
+samples/e2e/crypto-config
 
