@@ -92,7 +92,7 @@ function networkUp () {
 	#Lets generate all the artifacts which includes org certs, orderer.block,
         # channel configuration transaction and Also generate a docker-compose file
         generateArtifacts
-
+        export ARCH_TAG=$(uname -m)
 	CHANNEL_NAME=$CH_NAME docker-compose -f $COMPOSE_FILE up -d 2>&1
 	if [ $? -ne 0 ]; then
 		echo "ERROR !!!! Unable to pull the images "
