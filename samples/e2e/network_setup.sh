@@ -41,13 +41,13 @@ function removeUnwantedImages() {
 }
 
 function generateOrdereBlock () {
-	echo
-	echo "##########################################################"
-	echo "############## Generate certificates #####################"
-	echo "##########################################################"
-        ./../../bin/cryptogen generate --config=./crypto-config.yaml
-	echo
-	echo
+	#echo
+	#echo "##########################################################"
+	#echo "############## Generate certificates #####################"
+	#echo "##########################################################"
+        #./../../bin/cryptogen generate --config=./crypto-config.yaml
+	#echo
+	#echo
 
 	echo "##########################################################"
 	echo "#########  Generating Orderer Genesis block ##############"
