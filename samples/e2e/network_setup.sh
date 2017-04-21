@@ -3,8 +3,8 @@
 UP_DOWN=$1
 CH_NAME=$2
 
-#COMPOSE_FILE=docker-compose.yaml
-COMPOSE_FILE=docker-compose-no-tls.yaml
+COMPOSE_FILE=docker-compose.yaml
+#COMPOSE_FILE=docker-compose-no-tls.yaml
 
 function printHelp () {
 	echo "Usage: ./network_setup <up|down> <channel-name>"
