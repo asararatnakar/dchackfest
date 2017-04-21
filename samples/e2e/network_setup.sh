@@ -41,6 +41,7 @@ function removeUnwantedImages() {
 }
 
 function replacePrivateKey () {
+        cp docker-compose-template.yaml docker-compose.yaml
         PRIV_KEY=$(ls crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/keystore/)
         sed -i "s/ORDERER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose.yaml
         PRIV_KEY=$(ls crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/keystore/)
@@ -53,7 +54,8 @@ function replacePrivateKey () {
         sed -i "s/PEER1_ORG2_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose.yaml
 }
 
-function generateOrdereBlock () {
+function generateArtifacts () {
+        #let os_arch=$(echo "$(uname -s)-$(uname -m)" | awk '{print tolower($0)}')
 	echo
 	echo "##########################################################"
 	echo "############## Generate certificates #####################"
@@ -82,7 +84,9 @@ function generateOrdereBlock () {
 }
 
 function networkUp () {
-        generateOrdereBlock
+	#Lets generate all the artifacts which includes org certs, orderer.block,
+        # channel configuration transaction and Also generate a docker-compose file
+        generateArtifacts
 
 	CHANNEL_NAME=$CH_NAME docker-compose -f $COMPOSE_FILE up -d 2>&1
 	if [ $? -ne 0 ]; then
