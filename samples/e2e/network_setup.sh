@@ -41,12 +41,28 @@ function removeUnwantedImages() {
 
 function generateOrdereBlock () {
 	echo
-	echo "Generating Orderer Genesis block ..."
+	echo "##########################################################"
+	echo "############## Generate certificates #####################"
+	echo "##########################################################"
+        ./../../bin/cryptogen generate --config=./crypto-config.yaml
+	echo
+	echo
+
+	echo "##########################################################"
+	echo "#########  Generating Orderer Genesis block ##############"
+	echo "##########################################################"
 	export ORDERER_CFG_PATH=$PWD
 	./../../bin/configtxgen -profile TwoOrgs -outputBlock orderer.block
+	echo
+	echo
 
-	echo "Generating channel configuration transaction 'channel.tx' ..."
+	echo "#################################################################"
+	echo "### Generating channel configuration transaction 'channel.tx' ###"
+	echo "#################################################################"
 	./../../bin/configtxgen -profile TwoOrgs -outputCreateChannelTx channel.tx -channelID $CH_NAME
+	echo
+	echo
+
 }
 
 function networkUp () {
@@ -67,7 +83,7 @@ function networkDown () {
 	#Cleanup images
 	removeUnwantedImages
         # remove orderer block and channel transaction
-	rm -rf orderer.block channel.tx
+	rm -rf orderer.block channel.tx crypto-config
 }
 
 validateArgs
