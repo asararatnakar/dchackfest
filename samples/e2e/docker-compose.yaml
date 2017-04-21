@@ -17,7 +17,7 @@ services:
     #command: /bin/bash -c 'sleep 600'
     volumes:
     - ./orderer.block:/var/hyperledger/orderer/orderer.block
-    - ./crypto-config/ordererOrganizations/ordererOrg1/orderers/ordererOrg1Orderer1:/var/hyperledger/orderer/msp
+    - ./crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com:/var/hyperledger/orderer/msp
     ports:
       - 7050:7050
 
@@ -31,7 +31,7 @@ services:
       - CORE_PEER_LOCALMSPID=Org0MSP
     volumes:
         - /var/run/:/host/var/run/
-        - ./crypto-config/peerOrganizations/peerOrg1/peers/peerOrg1Peer1:/etc/hyperledger/fabric/msp/sampleconfig
+        - ./crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com:/etc/hyperledger/fabric/msp/sampleconfig
     ports:
       - 7051:7051
       - 7053:7053
@@ -49,7 +49,7 @@ services:
       - CORE_PEER_LOCALMSPID=Org0MSP
     volumes:
         - /var/run/:/host/var/run/
-        - ./crypto-config/peerOrganizations/peerOrg1/peers/peerOrg1Peer2/:/etc/hyperledger/fabric/msp/sampleconfig
+        - ./crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com:/etc/hyperledger/fabric/msp/sampleconfig
     ports:
       - 8051:7051
       - 8053:7053
@@ -68,7 +68,7 @@ services:
       - CORE_PEER_LOCALMSPID=Org1MSP
     volumes:
         - /var/run/:/host/var/run/
-        - ./crypto-config/peerOrganizations/peerOrg2/peers/peerOrg2Peer1/:/etc/hyperledger/fabric/msp/sampleconfig
+        - ./crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com:/etc/hyperledger/fabric/msp/sampleconfig
     ports:
       - 9051:7051
       - 9053:7053
@@ -88,7 +88,7 @@ services:
       - CORE_PEER_LOCALMSPID=Org1MSP
     volumes:
         - /var/run/:/host/var/run/
-        - ./crypto-config/peerOrganizations/peerOrg2/peers/peerOrg2Peer2/:/etc/hyperledger/fabric/msp/sampleconfig
+        - ./crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com:/etc/hyperledger/fabric/msp/sampleconfig
     ports:
       - 10051:7051
       - 10053:7053

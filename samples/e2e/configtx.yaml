@@ -41,7 +41,7 @@ Organizations:
         ID: OrdererMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: crypto-config/ordererOrganizations/ordererOrg1/msp 
+        MSPDir: crypto-config/ordererOrganizations/example.com/msp 
 
         # BCCSP (Blockchain crypto provider): Select which crypto implementation or
         # library to use
@@ -63,7 +63,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: Org0MSP
 
-        MSPDir:  crypto-config/peerOrganizations/peerOrg1/msp
+        MSPDir:  crypto-config/peerOrganizations/org1.example.com/msp
 
         # BCCSP (Blockchain crypto provider): Select which crypto implementation or
         # library to use
@@ -92,7 +92,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: Org1MSP
 
-        MSPDir: crypto-config/peerOrganizations/peerOrg2/msp 
+        MSPDir: crypto-config/peerOrganizations/org2.example.com/msp 
 
         # BCCSP (Blockchain crypto provider): Select which crypto implementation or
         # library to use
