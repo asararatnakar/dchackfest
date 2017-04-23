@@ -55,10 +55,7 @@ function replacePrivateKey () {
 }
 
 function generateArtifacts () {
-        os_arch=$(echo "$(uname -s)-$(uname -m)" | awk '{print tolower($0)}')
-        if [ "$(uname -m)" = "x86_64" ]; then
-                os_arch=$(echo "$(uname -s)-amd64" | awk '{print tolower($0)}')
-        fi
+        os_arch=$(echo "$(uname -s)-$(uname -m | sed 's/x86_64/amd64/g')" | awk '{print tolower($0)}')
 
         echo "OS_ARCH "$os_arch
 	echo

@@ -7,7 +7,7 @@
 **Make sure to set the os_arch env**
 
 ```
-os_arch=$(echo "$(uname -s)-$(uname -m)" | awk '{print tolower($0)}')
+os_arch=$(echo "$(uname -s)-$(uname -m | sed 's/x86_64/amd64/g')" | awk '{print tolower($0)}')
 ```
 
 ```
